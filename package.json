@@ -11,5 +11,8 @@
   "license": "ISC",
   "devDependencies": {
     "vercel": "^20.1.4"
+  },
+  "dependencies": {
+    "node-fetch": "^2.6.1"
   }
 }
