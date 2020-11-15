@@ -4,8 +4,12 @@
   "description": "Slash commands for Winnie",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "vercel": "vercel"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "vercel": "^20.1.4"
+  }
 }
