@@ -13,8 +13,8 @@ const fetch = require('node-fetch');
 // }
 
 
-module.exports = (req, res) => {
-    const expiration = Date.now() + 6000
+module.exports = async (req, res) => {
+    const expiration = Date.now() + 9000
 
     console.log(expiration)
 
@@ -22,11 +22,10 @@ module.exports = (req, res) => {
         "profile": {
             "status_text": "Lunch",
             "status_emoji": ":pizza:",
-            "status_expiration": 6000,
         }
     }
 
-    fetch('https://slack.com/api/users.profile.set', {
+    const resOne = await fetch('https://slack.com/api/users.profile.set', {
         method: 'post',
         body:    JSON.stringify(body),
         headers: { 
@@ -34,6 +33,24 @@ module.exports = (req, res) => {
             'Authorization': `Bearer ${process.env.SLACK_XOXP_TOKEN}` 
         },
     })
+    .then()
     .then(res => res.json())
-    .then(json => res.json(json));
+
+    const bodyTwo = {
+        "profile": {
+            "status_expiration": expiration,
+        }
+    }
+
+    const resTwo = await fetch('https://slack.com/api/users.profile.set', {
+        method: 'post',
+        body:    JSON.stringify(bodyTwo),
+        headers: { 
+            'Content-Type': 'application/json; charset=utf-8',
+            'Authorization': `Bearer ${process.env.SLACK_XOXP_TOKEN}` 
+        },
+    })
+    .then(res => res.json())
+
+    res.json({...resOne, ...resTwo})
 }
