@@ -22,6 +22,7 @@ module.exports = async (req, res) => {
         "profile": {
             "status_text": "Lunch",
             "status_emoji": ":pizza:",
+            "status_expiration": expiration,
         }
     }
 
@@ -36,21 +37,21 @@ module.exports = async (req, res) => {
     .then()
     .then(res => res.json())
 
-    const bodyTwo = {
-        "profile": {
-            "status_expiration": expiration,
-        }
-    }
+    // const bodyTwo = {
+    //     "profile": {
+    //         "status_expiration": expiration,
+    //     }
+    // }
 
-    const resTwo = await fetch('https://slack.com/api/users.profile.set', {
-        method: 'post',
-        body:    JSON.stringify(bodyTwo),
-        headers: { 
-            'Content-Type': 'application/json; charset=utf-8',
-            'Authorization': `Bearer ${process.env.SLACK_XOXP_TOKEN}` 
-        },
-    })
-    .then(res => res.json())
+    // const resTwo = await fetch('https://slack.com/api/users.profile.set', {
+    //     method: 'post',
+    //     body:    JSON.stringify(bodyTwo),
+    //     headers: { 
+    //         'Content-Type': 'application/json; charset=utf-8',
+    //         'Authorization': `Bearer ${process.env.SLACK_XOXP_TOKEN}` 
+    //     },
+    // })
+    // .then(res => res.json())
 
-    res.json({...resOne, ...resTwo})
+    res.json({...resOne})
 }
